@@ -8,6 +8,6 @@ import { Message } from '@hacknews/api-interfaces';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  hello$ = this.http.get('/api/articles');
+  // hello$ = this.http.get('/api/articles');
   constructor(private http: HttpClient) {}
 }
