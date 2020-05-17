@@ -2,14 +2,14 @@
   <div class="card-container">
     <h2>{{ article.title }}</h2>
   </div>
-  <div class="card-container">
+  <div class="card-main-image">
     <img [src]="article.image" class="main-image" />
   </div>
-  <div class="card-container" [innerHTML]="article.innerHTML | safe: 'html'"></div>
+  <div class="data-content" [innerHTML]="article.innerHTML | safe: 'html'"></div>
 
-  <div class="card-container">
+  <div class="original-link">
     <a href="{{ article.url }}" target="_blank">
-      See original
+      See original link
     </a>
   </div>
 </div>

@@ -35,6 +35,7 @@ export class ArticleService {
             omission: '...',
             separator: ' '
           });
+          delete article.innerHTML;
           return article;
         });
         return listArticlesParsed;
@@ -89,7 +90,10 @@ export class ArticleService {
 
         const root = parse(data.data) as any;
 
-        const contentInnerHTML = this.getContentInnerHTML(root, dataParsed.text().replace(dataParsed.title(), ''));
+        const contentInnerHTML = this.getContentInnerHTML(
+          root,
+          dataParsed.text().replace(dataParsed.title(), '')
+        );
 
         const result = {
           title: dataParsed.title() || defaultTitle,
@@ -97,7 +101,7 @@ export class ArticleService {
           image: dataParsed.image(),
           id: id,
           url: url,
-          innerHTML: contentInnerHTML,
+          innerHTML: contentInnerHTML
         };
         CacheService.cache.set(id, result);
         return result;
@@ -115,25 +119,41 @@ export class ArticleService {
   }
 
   private getContentInnerHTML(rootElement, textInside) {
-    const smallTextInside = truncate(textInside, {
+    const sampleTextInside = truncate(textInside.slice(0, 25), {
       length: 25,
       omission: '',
       separator: ' '
     });
 
-    console.log(smallTextInside);
+    const sampleTextInside2 = truncate(textInside.slice(50, 75), {
+      length: 25,
+      omission: '',
+      separator: ' '
+    });
+
+    const sampleTextInside3 = truncate(textInside.slice(100, 125), {
+      length: 25,
+      omission: '',
+      separator: ' '
+    });
+
     const paragraphElements = rootElement.querySelectorAll('p');
 
     let elementInsideContent;
     for (const paragraphElement of paragraphElements) {
-      if (paragraphElement.innerHTML.includes(smallTextInside)) {
+      if (
+        paragraphElement.innerHTML.includes(sampleTextInside) ||
+        paragraphElement.innerHTML.includes(sampleTextInside2) ||
+        paragraphElement.innerHTML.includes(sampleTextInside3)
+      ) {
         elementInsideContent = paragraphElement;
         break;
       }
     }
-    
+
     const contentNode = this.getContentNode(elementInsideContent);
-    return contentNode ? contentNode.innerHTML : textInside;
+    const contentReturn = contentNode ? contentNode.innerHTML.replace(/(<\/?(?:a|p|img)[^>]*>)|<[^>]+>/ig, '$1') : textInside;
+    return contentReturn;
   }
 
   private getContentNode(childNode) {
@@ -142,9 +162,9 @@ export class ArticleService {
     while (!contentNode && currentNode && currentNode.parentNode) {
       if (
         (currentNode.parentNode.attributes['class'] &&
-        currentNode.parentNode.attributes['class'].includes('content'))
-        || currentNode.parentNode.attributes['id'] &&
-        currentNode.parentNode.attributes['id'].includes('content')
+          currentNode.parentNode.attributes['class'].includes('content')) ||
+        (currentNode.parentNode.attributes['id'] &&
+          currentNode.parentNode.attributes['id'].includes('content'))
       ) {
         contentNode = currentNode;
       } else {

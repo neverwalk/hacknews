@@ -11,11 +11,12 @@
         <mat-panel-description>
           {{ article.text }}
         </mat-panel-description>
+        <br />
         <a
           [routerLink]="['/articles/' + article.id]"
           routerLinkActive="active-link"
         >
-          Read more
+          Read more ...
         </a>
       </mat-expansion-panel>
     </mat-accordion>
