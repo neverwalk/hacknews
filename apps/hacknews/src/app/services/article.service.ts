@@ -23,4 +23,15 @@ export class ArticleService extends BaseService<Article> {
       })
     );
   }
+
+  getArticle(id: number): Observable<Article> {
+    return this.doGet(`${id}`).pipe(
+      map(res => {
+        if (!res.success) {
+          this.handleError(res);
+        }
+        return res.data;
+      })
+    );
+  }
 }

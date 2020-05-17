@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ArticleService } from './article.service';
 
 @Controller('articles')
@@ -9,9 +9,20 @@ export class ArticleController {
   async getArticles() {
     try {
       const result = await this.articleService.getArticles();
-      return result;
+      return { code: 200, data: result, success: true };
     } catch (err) {
-      return { data: [] };
+      return { code: 404, message: err.message, data: null, success: false };
     }
   }
+
+  @Get('/:id')
+  async getArticle(@Param('id') id: string) {
+    try {
+      const result = await this.articleService.getArticle(id);
+      return { code: 200, data: result, success: true };
+    } catch (err) {
+      return { code: 404, message: err.message, data: null, success: false };
+    }
+  }
+  
 }

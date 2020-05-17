@@ -1,0 +1,15 @@
+<div class="content" role="main">
+  <div class="card-container">
+    <h2>{{ article.title }}</h2>
+  </div>
+  <div class="card-container">
+    <img [src]="article.image" class="main-image" />
+  </div>
+  <div class="card-container" [innerHTML]="article.innerHTML | safe: 'html'"></div>
+
+  <div class="card-container">
+    <a href="{{ article.url }}" target="_blank">
+      See original
+    </a>
+  </div>
+</div>
