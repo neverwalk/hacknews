@@ -4,5 +4,5 @@ export class Article {
   text?: string;
   image?: string;
   url?: string;
-  innerHTML?: string;
+  contentHTML?: string;
 }

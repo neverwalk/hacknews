@@ -100,3 +100,12 @@ a:hover {
 a:hover {
   color: #125699;
 }
+
+mat-expansion-panel {
+  mat-expansion-panel-header {
+    height: auto!important; 
+  }
+  mat-panel-title {
+    padding: 12px 0px;
+  }
+}

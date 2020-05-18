@@ -13,8 +13,8 @@ export class ArticleService extends BaseService<Article> {
     this.resourceURL = `articles`;
   }
 
-  getArticles(): Observable<Article[]> {
-    return this.doGet('').pipe(
+  getArticles(page?: number): Observable<Article[]> {
+    return this.doGet('', page ? `page=${page}`: '').pipe(
       map(res => {
         if (!res.success) {
           this.handleError(res);

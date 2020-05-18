@@ -5,7 +5,7 @@
   <div class="card-main-image">
     <img [src]="article.image" class="main-image" />
   </div>
-  <div class="data-content" [innerHTML]="article.innerHTML | safe: 'html'"></div>
+  <div class="data-content" [innerHTML]="article.contentHTML | safe: 'html'"></div>
 
   <div class="original-link">
     <a href="{{ article.url }}" target="_blank">
