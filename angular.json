@@ -26,6 +26,7 @@
               "apps/hacknews/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/hacknews/src/styles.scss"
             ],
             "scripts": []

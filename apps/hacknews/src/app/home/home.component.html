@@ -1,0 +1,28 @@
+<div class="content" role="main">
+  <div class="card-container">
+    <h2>Top hacker news today</h2>
+  </div>
+  <div class="card-container">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let article of listArticles; index as i">
+        <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+          <mat-panel-title> {{ i + 1 }}. {{ article.title }} </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          {{ article.text }}
+        </mat-panel-description>
+        <br />
+        <a
+          [routerLink]="['/articles/' + article.id]"
+          routerLinkActive="active-link"
+        >
+          Read more ...
+        </a>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="card-container">
+    <button mat-stroked-button (click)="loadMore(page)" *ngIf="!isLoading">Load more</button>
+    <mat-spinner [diameter]="30" *ngIf="isLoading"></mat-spinner>
+  </div>
+</div>
